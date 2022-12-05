@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -34,6 +35,7 @@ import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -43,6 +45,7 @@ public class ClientImplement extends JFrame implements Serializable {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private JFileChooser fileDialog;
 
 	DataInputStream dis;
 	DataOutputStream dos;
@@ -113,7 +116,7 @@ public class ClientImplement extends JFrame implements Serializable {
 //			System.out.print(test.get(i) + " ");
 //		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 811, 575);
+		setBounds(100, 100, 900, 575);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -189,31 +192,47 @@ public class ClientImplement extends JFrame implements Serializable {
 		//b += 36;
 		JButton btnNewButton_3 = new JButton("D\u1EEF li\u1EC7u t\u1EEB file");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton_3.setBounds(500, b, 134, 37);
+		btnNewButton_3.setBounds(450, b, 134, 37);
 		contentPane.add(btnNewButton_3);
+		JLabel statusLabel = new JLabel("File name");
+        statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        statusLabel.setBounds(600, b, 350, 30);
+        contentPane.add(statusLabel);
+		
 		btnNewButton_3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String url = "C:\\Users\\PC\\Desktop\\test.txt";
+				fileDialog = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(null, "txt");
+                fileDialog.setFileFilter(filter);
+                int returnVal1 = fileDialog.showOpenDialog(null);
 
 		        FileInputStream fileInputStream = null;
 		        BufferedReader bufferedReader = null;
-
-		        try {
-		            fileInputStream = new FileInputStream(url);
-		            bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-		            String line = bufferedReader.readLine();
-		            List<String> list1 = new ArrayList<String>();
-		            while (line != null) {
-		                System.out.println(line);
-		                list1.add(line);
-		                line = bufferedReader.readLine();
-		            }
-		            for(int i = 0;i < list.size();i++) {
-						list.get(i).setText(list.get(i).getText() + list1.get(i));
-					}
-		        } catch(Exception e1) {
+		        
+		        if(returnVal1 == JFileChooser.APPROVE_OPTION) {
+		        	java.io.File f = fileDialog.getSelectedFile();
+                	statusLabel.setText("File Selected :" + f.getPath());
+                	
+                	String url = f.getPath();
+		        	try {
+			            fileInputStream = new FileInputStream(url);
+			            bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+			            String line = bufferedReader.readLine();
+			            List<String> list1 = new ArrayList<String>();
+			            while (line != null) {
+			                System.out.println(line);
+			                list1.add(line);
+			                line = bufferedReader.readLine();
+			            }
+			            for(int i = 0;i < list.size();i++) {
+							list.get(i).setText(list.get(i).getText() + list1.get(i));
+						}
+			        } catch(Exception e1) {
+			        }
 		        }
+
+		        
 			}
 		});
 		
