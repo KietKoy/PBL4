@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex implements Serializable,Comparable<Vertex> {
-    private String name;
+    private static final long serialVersionUID = 1L;
+	private String name;
     private List<Edge> edges;
     private boolean visited;
     private Vertex previosVertex;

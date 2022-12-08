@@ -47,6 +47,7 @@ public class ClientImplement extends JFrame implements Serializable {
 	DataInputStream dis;
 	DataOutputStream dos;
 	ObjectInputStream ois;
+	String ipServer;
 	int n;
 	int[][] data = new int[n][n];
 	Draw panel, panel1;
@@ -59,7 +60,7 @@ public class ClientImplement extends JFrame implements Serializable {
 			public void run() {
 				try {
 					int[][] data = { { 0, 0 } };
-					ClientImplement frame = new ClientImplement(data, 0);
+					ClientImplement frame = new ClientImplement(data, 0, "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -99,7 +100,8 @@ public class ClientImplement extends JFrame implements Serializable {
 		}
 		return rs;
 	}
-	public ClientImplement(int[][] data, int n) {
+	public ClientImplement(int[][] data, int n, String ip) {
+		this.ipServer = ip;
 
 		this.data = data;
 		this.n = n;
@@ -288,7 +290,7 @@ public class ClientImplement extends JFrame implements Serializable {
 				}
 				// TODO Auto-generated method stub
 				try {
-					Socket soc = new Socket("localhost", 5000);
+					Socket soc = new Socket("192.168.11.24", 5000);
 					dis = new DataInputStream(soc.getInputStream());
 					dos = new DataOutputStream(soc.getOutputStream());
 					ois = new ObjectInputStream(soc.getInputStream());

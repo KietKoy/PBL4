@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 public class Draw extends JPanel {
+	private static final long serialVersionUID = 1L;
 	int r = 100;
 	int n;
 	int[][] data = new int[n][n];

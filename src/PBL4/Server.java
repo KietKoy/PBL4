@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
-	public final static int daytimePort = 5000;
+	public final static int daytimePort = 8000;
 
 	public static void main(String[] args) {
 		new Server();

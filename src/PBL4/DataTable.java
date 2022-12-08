@@ -20,6 +20,7 @@ import javax.swing.JTable;
 
 public class DataTable extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 	JScrollPane sp;

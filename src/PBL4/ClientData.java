@@ -36,7 +36,8 @@ public class ClientData extends JFrame implements Runnable {
 	String ColumnsName[] = {"","",""};
 	JScrollPane sp;
 	private JTextField textField;
-	static ClientData frame = new ClientData();
+	String ipServer;
+	static ClientData frame = new ClientData("");
 
 
 	DataInputStream dis;
@@ -62,7 +63,8 @@ public class ClientData extends JFrame implements Runnable {
 	/**
 	 * Create the frame.
 	 */
-	public ClientData() {
+	public ClientData(String ip) {
+		this.ipServer = ip;	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 738, 498);
 		contentPane = new JPanel();
@@ -160,7 +162,7 @@ public class ClientData extends JFrame implements Runnable {
 				        	 }
 				         }
 						try {
-							new ClientImplement(data, v).setVisible(true);
+							new ClientImplement(data, v, ipServer).setVisible(true);
 							frame.setVisible(false);
 						} catch (Exception e2) {
 							// TODO: handle exception
