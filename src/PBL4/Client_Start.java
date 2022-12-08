@@ -53,16 +53,20 @@ public class Client_Start extends JFrame {
 		JButton btnNewButton = new JButton("CONNECT");
 		btnNewButton.setBounds(146, 85, 129, 21);
 		btnNewButton.addActionListener(new ActionListener() {
-			
+			private boolean isFormatIpv4(String host) {
+		    	String pattern = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$";
+		        return host.matches(pattern);
+		    }
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String ip = textField_1.getText().toString();
-				if(ip.equals("")) {
+				if(ip.equals("") || isFormatIpv4(ip) == false) {
 					JOptionPane.showMessageDialog(contentPane,
 			                "Vui Long Nhap IP",
 			                "ERROR",
 			                JOptionPane.INFORMATION_MESSAGE);
+					
 				}
 				else {
 					new ClientData(ip).setVisible(true);

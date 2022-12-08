@@ -93,14 +93,6 @@ public class Server {
 				DataInputStream dis = new DataInputStream(soc.getInputStream());
 				DataOutputStream dos = new DataOutputStream(soc.getOutputStream());
 				ObjectOutputStream ous = new ObjectOutputStream(soc.getOutputStream());
-//					this.n = dis.readInt();
-//					this.data = new int[this.n][this.n];
-//					for(int i = 0;i < this.n;i++) {
-//						for(int j = 0;j < this.n;j++) {
-//							this.data[i][j] = dis.readInt();
-//						}
-//					}
-
 				this.n = dis.readInt();
 				this.data = new int[this.n][this.n];
 				for (int i = 0; i < this.n; i++) {
@@ -128,9 +120,6 @@ public class Server {
 				}
 				System.out.println(rs);
 				ous.writeObject(rs);
-				
-//					shortPath = dijkstra.getShortestPathTo(this.listVertex.get(2));
-//					ous.writeObject(shortPath.get(0));
 
 			} catch (Exception e1) {
 

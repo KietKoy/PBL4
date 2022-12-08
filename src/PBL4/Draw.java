@@ -39,7 +39,7 @@ public class Draw extends JPanel {
 		}
 		return listNode;
 	}
-	public void createNameNode() { //int numberOfNode
+	public void createNameNode() { 
 		nameNode = new String[this.n];
 		char s = 'A';
 		nameNode[0] = String.valueOf(s);
@@ -49,7 +49,7 @@ public class Draw extends JPanel {
 		}
 	}
 
-	public void createVertex() {//int numberOfNode
+	public void createVertex() {
 		createNameNode();
 
 		ArrayList<Point> listNode = new ArrayList<Point>();
@@ -102,7 +102,6 @@ public class Draw extends JPanel {
 
 	@Override
 	public void paint(Graphics g) {
-//		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(3));
@@ -116,14 +115,6 @@ public class Draw extends JPanel {
 						String.valueOf(listEdge.get(j).getWeight()), g2);
 			}
 		}
-
-//		Dijkstra dijkstra = new Dijkstra();
-//		dijkstra.computePath(listVertex.get(0));
-//		List<Vertex> shortPath = new ArrayList<Vertex>();
-//		shortPath = dijkstra.getShortestPathTo(listVertex.get(2));
-//		for (int i = 0; i < shortPath.size() - 1; i++) {
-//			drawLineSegment(shortPath.get(i).getPoint(), shortPath.get(i + 1).getPoint(), Color.red, 3, "", g2);
-//		}
 		if(this.shortPath.size() > 0)
 		{
 			for (int  i = 0; i < shortPath.size() - 1; i++)
