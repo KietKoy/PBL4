@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -62,7 +64,7 @@ public class ClientImplement extends JFrame implements Serializable {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					int[][] data = { { 0, 0 } };
+					int[][] data = { { 0, 0 }};
 					ClientImplement frame = new ClientImplement(data, 0, "");
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -70,6 +72,7 @@ public class ClientImplement extends JFrame implements Serializable {
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -104,13 +107,19 @@ public class ClientImplement extends JFrame implements Serializable {
 		return rs;
 	}
 	public ClientImplement(int[][] data, int n, String ip) {
+		addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+                new ClientData("").setVisible(true);
+            }
+        });
 		this.ipServer = ip;
 
 		this.data = data;
 		this.n = n;
 		
 		ArrayList<String> test = listLine();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 575);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -344,6 +353,14 @@ public class ClientImplement extends JFrame implements Serializable {
 		JButton btnNewButton_2 = new JButton("K\u1EBFt th\u00FAc");
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton_2.setBounds(300, 383, 101, 37);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new ClientData("").setVisible(true);
+			}
+			
+		});
 		contentPane.add(btnNewButton_2);
 	}
 }
