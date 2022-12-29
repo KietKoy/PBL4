@@ -26,7 +26,7 @@ public class DataTable extends JFrame {
 	JScrollPane sp;
 	int n;
 	int[][] data = new int[n][n];
-	String[] columnNames = {"i", "Line", "Ld(pkts/sec)", "C(kbps)"};
+	String[] columnNames = {"i", "Line", "Ld(pkts/sec)", "C(kbps)", "mC(pkts/sec)", "T(msec)", "Trong so"};
 	List<String> list1 = new ArrayList<String>();
 
 	/**

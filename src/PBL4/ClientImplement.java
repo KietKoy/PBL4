@@ -105,10 +105,8 @@ public class ClientImplement extends JFrame implements Serializable {
 	}
 	public ClientImplement(int[][] data, int n, String ip) {
 		this.ipServer = ip;
-
 		this.data = data;
 		this.n = n;
-		
 		ArrayList<String> test = listLine();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 575);
@@ -145,13 +143,54 @@ public class ClientImplement extends JFrame implements Serializable {
 		JButton btnNewButton = new JButton("B\u1EA3ng s\u1ED1 li\u1EC7u");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				double arrmC[] = new double[list.size()];
+				double arrT[] = new double[list.size()];
+				double arrG[] = new double[list.size()];
+				try {
+						Socket soc = new Socket(ipServer, 8000);
+						dis =  new DataInputStream(soc.getInputStream());
+						dos = new DataOutputStream(soc.getOutputStream());
+						ois = new ObjectInputStream(soc.getInputStream());
+						dos.writeUTF("Phantichmang");
+						dos.writeInt(n);
+						dos.writeInt(list.size());
+						String[] matran = new String[list.size()];
+						int k = 0;
+						for(int i = 0; i < list.size(); i++) {
+							String[] arrOfStr = list.get(i).getText().split(":", 0);
+							matran[k] = arrOfStr[1];
+							dos.writeInt(Integer.parseInt(matran[k]));
+							k++;
+						}
+						for (int i = 0; i < n; i++) {
+							for (int j = 0; j < n; j++) {
+								dos.writeInt(data[i][j]);
+								if(i < j && data[i][j] !=0) System.out.print(data[i][j] + " ");
+							}
+						}
+						
+						for(int i = 0; i < list.size(); i++) {
+							arrmC[i] = dis.readDouble();
+							arrT[i] = dis.readDouble();
+							arrG[i] = dis.readDouble();
+							System.out.println(arrmC[i] + " " + arrT[i] + " " + arrG[i]);
+						}
+					}
+				 catch (Exception e1) {
+					JOptionPane.showMessageDialog(contentPane,
+			                "DIA CHI IP SERVER SAI, VUI LONG NHAP LAI",
+			                "ERROR",
+			                JOptionPane.INFORMATION_MESSAGE);
+					new Client_Start().setVisible(true);
+					setVisible(false);
+				}
 				List<String> s1 = new ArrayList<String>();
 				for(int i = 0;i < list.size();i++) {
 					s1.add(list.get(i).getText());
 				}
 				DataTable dt = new DataTable(data, n, s1);
 				dt.setVisible(true);
-				//frame.setVisible(false);
+//				frame.setVisible(false);
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -166,7 +205,6 @@ public class ClientImplement extends JFrame implements Serializable {
 				}
 			}
 		}
-
 		int b = 114;
 		for(int i = 0;i < Math.round((double)count/2);i++) {
 				textField = new JTextField(test.get(i)+":");
@@ -306,13 +344,13 @@ public class ClientImplement extends JFrame implements Serializable {
 					dis =  new DataInputStream(soc.getInputStream());
 					dos = new DataOutputStream(soc.getOutputStream());
 					ois = new ObjectInputStream(soc.getInputStream());
+					dos.writeUTF("shortpath");
 					dos.writeInt(n);
 					for (int i = 0; i < n; i++) {
 						for (int j = 0; j < n; j++) {
 							dos.writeInt(data[i][j]);
 						}
 					}
-					
 					int a = comboBox.getSelectedIndex();
 					dos.writeInt(a);
 					int b = comboBox_1.getSelectedIndex();
